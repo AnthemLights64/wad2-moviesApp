@@ -52,4 +52,9 @@ describe("Movie Details Page", () => {
       .should("have.attr", "href")
       .should("include", movie.homepage);
   });
+  it("should display an image tag with the appropriate href attribute", () => {
+    cy.get(".movie")
+        .should("have.attr", "src")
+        .should("include", movie.poster_path);;
+  });
 });
