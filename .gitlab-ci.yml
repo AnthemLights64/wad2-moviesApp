@@ -7,20 +7,19 @@ stages:
   - build
   - test
 
-# Jobs 
+variables:
+   npm_config_cache: "$CI_PROJECT_DIR/.npm"
+   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
-install_dependencies:
-  stage: install
-  script:
-    - npm ci
-  artifacts:
-    paths:
-      - node_modules/
+cache:
+   key:
+     files:
+        - package.json
+   paths:
+      - .npm
+      - cache/Cypress
+      - node_modules
 
-# bundle_app:
-#   stage: build
-#   script:
-#     - npm run build
 bundle_app:
   stage: build
   script:
