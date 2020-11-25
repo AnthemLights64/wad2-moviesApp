@@ -5,14 +5,13 @@ import AddToFavoritesButton from '../components/buttons/addToFavorites'
 
 const MovieListPage = () => {
   const context = useContext(MoviesContext);
-  const movies = context.movies.filter((m) => {  // New
+  const topRated = context.topRated.filter((m) => {  // New
     return !("favorite" in m);
   });
-
   return (
       <PageTemplate 
-        title='All Movies'
-        movies={movies}
+        title='Top Rated Movies'
+        movies={topRated}
         action={(movie) => {
           return <AddToFavoritesButton movie={movie} /> 
         }}
