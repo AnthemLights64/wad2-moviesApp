@@ -7,6 +7,10 @@ import AddToFavoritesButton from '../components/buttons/addToFavorites'
 const SimilarMoviesPage = props => {
   const { id } = props.match.params;
   //const [movie] = useMovie(id);
+
+  const  { query = {} } = props.location;
+  const  { name } = query;
+
   const [similarMovies, setSimilarMovies] = useState([]);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const SimilarMoviesPage = props => {
   }, []);
   return (
     <PageTemplate 
-      title="Similar Movies of that One "
+      title= {`Similar Movies of ${name}`}
       movies={similarMovies}
       action={(movie) => {
         return <AddToFavoritesButton movie={movie} /> 

@@ -26,6 +26,9 @@ const MovieHeader = ({ movie, history }) => {
           <Link
             to={{
               pathname: `/${movie.id}/similar`,
+              query: {
+                name: movie.title
+              }
             }}
           >
             Similar Movies
