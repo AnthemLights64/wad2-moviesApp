@@ -21,7 +21,7 @@ const MovieHeader = ({ movie, history }) => {
           </a>
         </h2>
       </div>
-      <div className="col-6 offset-1">
+      <div>
         <h4>
           <Link
             to={{
@@ -31,7 +31,7 @@ const MovieHeader = ({ movie, history }) => {
               }
             }}
           >
-            Similar Movies
+            <button type="button" className="btn btn-primary">Similar Movies</button>
           </Link>
         </h4>
       </div>
