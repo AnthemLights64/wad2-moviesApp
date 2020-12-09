@@ -16,6 +16,8 @@ import GenresContextProvider from "./contexts/genresContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
 import MovieCreditsPage from './pages/movieCredits';
+import CastDetailsPage from './pages/castDetailsPage';
+
 
 const App = () => {
   return (
@@ -26,6 +28,7 @@ const App = () => {
       <MoviesContextProvider>     {/* NEW  */}
         <GenresContextProvider>    {/* NEW */}
           <Switch>
+              <Route path="/credit/:id" component={CastDetailsPage} />
               <Route exact path="/movies/:id/movieCredits" component={MovieCreditsPage} />
               <Route path="/:id/similar" component={SimilarMoviesPage} />
               <Route exact path="/movies/watchList" component={WatchListPage} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMovieCredits } from "../../api/tmdb-api";
 import "./movieCredits.css";
+import { Link } from "react-router-dom";
 
 export default ({ movie }) => {
   const [cast, setCast] = useState([]);
@@ -26,6 +27,7 @@ export default ({ movie }) => {
         <tr>
           <th>Cast name</th>
           <th>Character</th>
+          <th>Operation</th>
         </tr>
       </thead>
       <tbody>
@@ -33,10 +35,18 @@ export default ({ movie }) => {
           <tr key={c.id}>
             <td>{c.name}</td>
             <td>{c.character}</td>
+            <td>
+              <Link to={{
+                  pathname: `/credit/${c.credit_id}`
+                }}>
+                  Details
+              </Link>
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
+    <div>{cast.profile_path}</div>
 
     </>
   );

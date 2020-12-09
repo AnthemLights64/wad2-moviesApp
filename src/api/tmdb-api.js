@@ -41,6 +41,13 @@ export const getMovies = () => {
       });
   };
 
+  export const getCreditDetails = creditId => {
+    return fetch(
+      `https://api.themoviedb.org/3/credit/${creditId}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    )
+      .then(res => res.json())
+  };
+
   export const getSimilarMovies = id => {
     return fetch(
       `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
