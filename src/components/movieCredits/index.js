@@ -46,7 +46,6 @@ export default ({ movie }) => {
         ))}
       </tbody>
     </table>
-    <div>{cast.profile_path}</div>
 
     </>
   );

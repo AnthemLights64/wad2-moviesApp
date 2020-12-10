@@ -38,6 +38,15 @@ const MoviePage = props => {
           path={`/movies/:id/reviews`}
           render={props => <MovieReviews movie={movie} {...props} />}
         />
+        <Link
+          className = "btn w-100 btn-primary"
+          style={{marginTop:20}}
+          to = {{
+              pathname: `/movies/${movie.id}/movieCredits`
+          }}
+          >
+            Show Credits
+        </Link>
       </>
     ) : (
       <p>Waiting for movie details</p>

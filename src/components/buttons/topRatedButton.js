@@ -6,11 +6,9 @@ const TopRatedButton = ({ movie }) => {
   return (
     <Link
     className = "btn w-100 btn-primary"
-    to = {{
-        pathname: `/movies/${movie.id}/movieCredits`
-    }}
+    to = {`/movies/${movie.id}`}
     >
-      Show Casts
+      Movie Details
     </Link>
   );
 };
