@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import { BrowserRouter, Route, Redirect, Switch} from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import HomePage from "./pages/homePage";
 import MoviePage from './pages/movieDetailsPage'
@@ -17,6 +16,7 @@ import AddMovieReviewPage from './pages/addMovieReviewPage';
 import SimilarMoviesPage from './pages/similarMoviesPage';
 import MovieCreditsPage from './pages/movieCredits';
 import CastDetailsPage from './pages/castDetailsPage';
+import SignInPage from './pages/signInPage';
 
 
 const App = () => {
@@ -28,6 +28,7 @@ const App = () => {
       <MoviesContextProvider>     {/* NEW  */}
         <GenresContextProvider>    {/* NEW */}
           <Switch>
+              <Route path="/signIn" component={SignInPage} />
               <Route path="/credit/:id" component={CastDetailsPage} />
               <Route exact path="/movies/:id/movieCredits" component={MovieCreditsPage} />
               <Route path="/:id/similar" component={SimilarMoviesPage} />

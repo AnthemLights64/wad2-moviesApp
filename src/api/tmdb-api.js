@@ -87,3 +87,51 @@ export const getMovies = () => {
       .then(res => res.json())
       .then(json => json.results);
   };
+
+  export const getNewToken = () => {
+    return fetch(
+      `https://api.themoviedb.org/3/authentication/token/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    )
+      .then(res => res.json())
+      .then(json => json.request_token);
+  };
+  
+  export const getNewSession = (token) => {
+    return fetch(
+      `https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          request_token: token
+        })
+      })
+      .then(res => res.json())
+      .then(json => json.session_id);
+  };
+  
+  export const getAccount = (sessionId) => {
+    return fetch(
+      `https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_TMDB_KEY}&session_id=${sessionId}`
+    )
+      .then(res => res.json());
+  };
+  
+  export const signIn = (username, password) => {
+    return getNewToken().then(token => {
+      return fetch(
+        `https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=${process.env.REACT_APP_TMDB_KEY}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username, password, request_token: token
+          })
+        })
+    }).then(res => res.json());
+  };
+  
