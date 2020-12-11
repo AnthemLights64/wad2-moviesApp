@@ -18,7 +18,6 @@ import MovieCreditsPage from './pages/movieCredits';
 import CastDetailsPage from './pages/castDetailsPage';
 import SignInPage from './pages/signInPage';
 
-
 const App = () => {
   return (
   <BrowserRouter>

@@ -47,6 +47,11 @@ const reducer = (state, action) => {
         upcoming: [...state.upcoming],
         topRated: [...state.topRated],
       };
+    case "maintain-user":
+      return {
+        ...state,
+        user:action.payload.user
+      };
     default:
       return state;
   }
@@ -73,6 +78,10 @@ const MoviesContextProvider = (props) => {
   const addReview = (movie, review) => {
     dispatch({ type: "add-review", payload: { movie, review } });
   };
+
+  const maintainUser = (user) => {
+    dispatch({type: "maintain-user", payload:{user}});
+  }
 
   useEffect(() => {
     getMovies().then((movies) => {
@@ -101,10 +110,12 @@ const MoviesContextProvider = (props) => {
         movies: state.movies,
         upcoming: state.upcoming,
         topRated: state.topRated,
+        user: state.user,
         addToFavorites: addToFavorites,
         addReview: addReview,
         addToWatchList:addToWatchList,
         removeFromWatchList:removeFromWatchList,
+        maintainUser: maintainUser,
       }}
     >
       {props.children}

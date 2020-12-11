@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import {message} from 'antd';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {signIn, getNewSession, getAccount} from '../../api/tmdb-api'
+import { MoviesContext } from '../../contexts/moviesContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ({history}) {
+  const context = useContext(MoviesContext);
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   
@@ -44,7 +46,9 @@ export default function ({history}) {
       if (res.success) {
         getNewSession(res.request_token).then(sessionId => {
           getAccount(sessionId).then(user => {
-            history.replace('/movies/upcoming')
+            context.maintainUser({...user,sessionId})
+            //history.replace('/movies/personal')
+            history.go(-1);
           })
         })
       } else {
