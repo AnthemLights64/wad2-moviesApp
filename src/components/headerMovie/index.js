@@ -31,7 +31,7 @@ const MovieHeader = ({ movie, history }) => {
               }
             }}
           >
-            <button type="button" className="btn btn-primary">Similar Movies</button>
+            <button type="button" className="btn btn-primary similarMoviesBtn">Similar Movies</button>
           </Link>
         </h4>
       </div>

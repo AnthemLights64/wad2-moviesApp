@@ -36,12 +36,19 @@ describe("Navigation", () => {
       cy.get("h2").contains(movies[1].title);
     });
     it("should allow navigation from site header", () => {
-      cy.get("nav").find("li").eq(2).find("a").click();
-      cy.url().should("include", `/favorites`);
-      cy.get("h2").contains("Favorite Movies");
-      cy.get("nav").find("li").eq(1).find("a").click();
+      cy.get("nav").find("li").eq(0).find("a").click();
       cy.url().should("not.include", `/favorites`);
+      cy.get("h2").contains("All Movies");
+      cy.get("nav").find("li").eq(1).find("a").click();
+      cy.url().should("include", `/upcoming`);
       cy.get("h2").contains("Upcoming Movies");
+      cy.get("nav").find("li").eq(2).find("a").click();
+      cy.url().should("include", `/top_rated`);
+      cy.get("h2").contains("Top Rated Movies");
+
+      cy.get("nav").find("li").eq(3).find("a").click();
+      cy.url().should("include", `/favorites`);
+
       cy.get("nav").find("li").eq(2).find("a").click();
       cy.get("nav.navbar-brand").find("a").click();
       cy.url().should("not.include", `/favorites`);
@@ -65,11 +72,16 @@ describe("Navigation", () => {
   //     cy.url().should("include", `/reviews/${reviewsId}`);
   //   });
   // });
+
   describe("From the Favorites page", () => {
     beforeEach(() => {
       cy.visit("/");
       cy.get(".card").eq(0).find("button").click();
-      cy.get("nav").find("li").eq(2).find("a").click();
+      cy.get("nav").find("li").eq(3).find("a").click();
+      cy.get(".signIn").click();
+      cy.get(".username").type("AnthemLights");
+      cy.get(".password").type("LWLlwl0604");
+      cy.get("form").find("button").click();
     });
     it("should navigate to the movies detail page and change the browser URL", () => {
       cy.get(".card").eq(0).find("img").click();
@@ -82,14 +94,20 @@ describe("Navigation", () => {
       cy.visit("/");
     });
     it("should navigate from home page to movie details and back", () => {
-      cy.get(".card").eq(1).find("img").click();
+      cy.get("nav").find("li").eq(0).find("a").click();
+      cy.get(".card").eq(0).find("img").click();
       cy.get("svg[data-icon=arrow-circle-left]").click();
       cy.url().should("not.include", `/movies`);
       cy.get("h2").contains("All Movies");
     });
     it("should navigate from favorites page to movie details and back", () => {
+      cy.get("nav").find("li").eq(0).find("a").click();
       cy.get(".card").eq(0).find("button").click();
-      cy.get("nav").find("li").eq(2).find("a").click();
+      cy.get("nav").find("li").eq(3).find("a").click();
+      cy.get(".signIn").click();
+      cy.get(".username").type("AnthemLights");
+      cy.get(".password").type("LWLlwl0604");
+      cy.get("form").find("button").click();
       cy.get(".card").eq(0).find("img").click();
       cy.url().should("include", `/movies/${movies[0].id}`);
       cy.get("h2").contains(movies[0].title);

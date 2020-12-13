@@ -78,6 +78,7 @@ export default function ({history}) {
             autoComplete="username"
             autoFocus
             onChange={event=>setUserName(event.target.value)}
+            className="username"
           />
           <TextField
             variant="outlined"
@@ -90,6 +91,7 @@ export default function ({history}) {
             id="password"
             autoComplete="current-password"
             onChange={event=>setPassword(event.target.value)}
+            className="password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
