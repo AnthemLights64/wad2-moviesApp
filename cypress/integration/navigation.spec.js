@@ -48,6 +48,8 @@ describe("Navigation", () => {
 
       cy.get("nav").find("li").eq(3).find("a").click();
       cy.url().should("include", `/favorites`);
+      cy.get("nav").find("li").eq(4).find("a").click();
+      cy.url().should("include", `/watchList`);
 
       cy.get("nav").find("li").eq(2).find("a").click();
       cy.get("nav.navbar-brand").find("a").click();
