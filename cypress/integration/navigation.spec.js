@@ -1,7 +1,7 @@
 let movies;
-const movieId = 497582; // Enola Holmes movie id
+const movieId = 577922; // Enola Holmes movie id
 let reviews;
-const reviewsId = "5f69e4d0cee2f6003633becf";
+const reviewsId = "5f4469f7fdc4fa0035b1a753";
 
 describe("Navigation", () => {
   before(() => {
@@ -57,23 +57,30 @@ describe("Navigation", () => {
       cy.get("h2").contains("All Movies");
     });
   });
-  // describe("From the Movie Details page ", () => {
-  //   beforeEach(() => {
-  //     cy.visit(`/movies/${movieId}`);
-  //   });
-  //   it("should change browser URL when show/hide reviews is clicked", () => {
-  //     cy.contains("Show Reviews").click();
-  //     cy.url().should("include", `/movies/${movieId}/reviews`);
-  //     cy.contains("Hide Reviews").click();
-  //     cy.url().should("not.include", `/movies/${movieId}/reviews`);
-  //   });
-  //   it("navigate to the full review page when a 'Full Review' link is clicked", () => {
-  //     cy.contains("Show Reviews").click();
-  //     cy.url().should("include", `/movies/${movieId}/reviews`);
-  //     cy.contains("Full Review").click();
-  //     cy.url().should("include", `/reviews/${reviewsId}`);
-  //   });
-  // });
+  describe("From the Movie Details page ", () => {
+    beforeEach(() => {
+      cy.visit(`/`);
+      cy.get("input").clear().type("Tenet") ;//577922
+      cy.get(".card").click();
+    });
+    it("should change browser URL when show/hide reviews is clicked", () => {
+      cy.contains("Show Reviews").click();
+      cy.url().should("include", `/movies/${movieId}/reviews`);
+      cy.contains("Hide Reviews").click();
+      cy.url().should("not.include", `/movies/${movieId}/reviews`);
+    });
+    it("navigate to the full review page when a 'Full Review' link is clicked", () => {
+      cy.contains("Show Reviews").click();
+      cy.url().should("include", `/movies/${movieId}/reviews`);
+      cy.contains("Full Review").click();
+      cy.url().should("include", `/reviews/${reviewsId}`);
+    });
+    it("should navigate to the credits page when 'Show Credits' is clicked", () => {
+      cy.contains("Show Credits").click();
+      cy.url().should("include", `/movies/${movieId}/movieCredits`);
+    });
+    
+  });
 
   describe("From the Favorites page", () => {
     beforeEach(() => {

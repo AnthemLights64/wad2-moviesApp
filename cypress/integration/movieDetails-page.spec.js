@@ -2,7 +2,11 @@ let movieId = 662546;
 let movie;
 let reviews;
 
-let movies;
+let movies; //similarMovies
+
+let credits;
+let creditId = "5e17c34e1d01910015f2c989";
+let creditDetails;
 
 
 describe("Movie Details Page", () => {
@@ -39,6 +43,24 @@ describe("Movie Details Page", () => {
         .then((response) => {
           movies = response.results;
         });
+    cy.request(
+          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${Cypress.env(
+            "TMDB_KEY"
+          )}&language=en-US&include_adult=false&include_video=false&page=1`
+        )
+          .its("body")
+          .then((response) => {
+            credits = response.cast;
+          });
+    cy.request(
+          `https://api.themoviedb.org/3/credit/${creditId}?api_key=${Cypress.env(
+            "TMDB_KEY"
+          )}&language=en-US&include_adult=false&include_video=false&page=1`
+        )
+          .its("body")
+          .then((response) => {
+            creditDetails = response;
+          });
   });
   // beforeEach(() => {
   //   cy.visit(`/movies/${movie.id}`);
@@ -103,7 +125,7 @@ describe("Movie Details Page", () => {
   it("should display an image tag with the appropriate src attribute", () => {
     cy.get(".movie")
         .should("have.attr", "src")
-        .should("include", movie.poster_path);;
+        .should("include", movie.poster_path);
   });
 
   describe("Similar Movies", () => {
@@ -119,6 +141,46 @@ describe("Movie Details Page", () => {
       cy.get(".card").eq(1).find("img").click();
       cy.url().should("include", `/movies/${movies[1].id}`);
       cy.get("h2").contains(movies[1].title);
+    });
+  });
+
+  describe("Credits", () => {
+    beforeEach(() => {
+      cy.contains("Show Credits").click();
+    });
+    it("should display the table head of the credits table", () => {
+      cy.get("thead").find("th").eq(0).contains("Cast name");
+      cy.get("thead").find("th").eq(1).contains("Character");
+      cy.get("thead").find("th").eq(2).contains("Operation");
+    });
+    it("should have the corresponding cast name and character name", () => {
+      cy.get("tbody").find("td").eq(0).contains(`${credits[0].name}`);
+      cy.get("tbody").find("td").eq(1).contains(`${credits[0].character}`);
+    });
+    describe("Credit details", () => {
+      beforeEach(() => {
+        cy.get("tbody").find("td").eq(2).contains("Details").click();
+      });
+      it("should navigate to the credit details and change broser URL", () => {
+        cy.url().should("include", `/credit/${credits[0].credit_id}`);
+      })
+      it("should display the poster of the cast", () => {
+        cy.get("tbody").find("img").should("have.attr", "src").should("include", creditDetails.person.profile_path);
+      })
+      it("should display the table head and the contents", () => {
+        cy.get("thead").find("th").contains("CastDetails");
+        cy.get("tbody").find("td").eq(1).contains("Name:");
+        cy.get("tbody").find("td").eq(2).contains(`${creditDetails.person.name}`);
+        cy.get("tbody").find("td").eq(3).contains("Character:");
+        cy.get("tbody").find("td").eq(4).contains(`${creditDetails.media.character}`);
+        cy.get("tbody").find("td").eq(5).contains("Popularity:");
+        cy.get("tbody").find("td").eq(6).contains(`${creditDetails.person.popularity}`);
+      });
+      it("should display known for movie posters", () => {
+        cy.get("tbody").get("td").eq(12).find("img").eq(0).should("have.attr", "src").should("include", creditDetails.person.known_for[0].poster_path);
+        cy.get("tbody").get("td").eq(12).find("img").eq(1).should("have.attr", "src").should("include", creditDetails.person.known_for[1].poster_path);
+        cy.get("tbody").get("td").eq(12).find("img").eq(2).should("have.attr", "src").should("include", creditDetails.person.known_for[2].poster_path);
+      });
     });
   });
 
