@@ -3,6 +3,8 @@ const movieId = 577922; // Enola Holmes movie id
 let reviews;
 const reviewsId = "5f4469f7fdc4fa0035b1a753";
 
+let upcoming;
+
 describe("Navigation", () => {
   before(() => {
     cy.request(
@@ -21,8 +23,16 @@ describe("Navigation", () => {
     )
       .its("body")
       .then((response) => {
-        console.log(response);
         reviews = response.results;
+      });
+    cy.request(
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${Cypress.env(
+        "TMDB_KEY"
+      )}`
+    )
+      .its("body")
+      .then((response) => {
+        upcoming = response.results;
       });
   });
 
@@ -79,7 +89,7 @@ describe("Navigation", () => {
       cy.contains("Show Credits").click();
       cy.url().should("include", `/movies/${movieId}/movieCredits`);
     });
-    
+
   });
 
   describe("From the Favorites page", () => {
@@ -96,6 +106,31 @@ describe("Navigation", () => {
       cy.get(".card").eq(0).find("img").click();
       cy.url().should("include", `/movies/${movies[0].id}`);
       cy.get("h2").contains(movies[0].title);
+    });
+  });
+
+  describe("From the Watch List page", () => {
+    beforeEach(() => {
+      cy.visit("/");
+      cy.get("nav").find("li").eq(1).find("a").click();
+      cy.get(".card").eq(0).find("button").click();
+      cy.get("nav").find("li").eq(4).find("a").click();
+      cy.get(".signIn").click();
+      cy.get(".username").type("AnthemLights");
+      cy.get(".password").type("LWLlwl0604");
+      cy.get("form").find("button").click();
+    });
+    it("should navigate to the movies detail page and change the browser URL", () => {
+      cy.get(".card").eq(0).find("img").click();
+      cy.url().should("include", `/movies/${upcoming[0].id}`);
+      cy.get("h2").contains(upcoming[0].title);
+    });
+    it("should remove the movie from watch list and restore it in upcoming page when clicked the 'remove from movieList' button", () => {
+      cy.contains("Remove from Watch List").click();
+      cy.get("nav").find("li").eq(1).find("a").click();
+      cy.get(".card").eq(0).find("img").click();
+      cy.url().should("include", `/movies/${upcoming[0].id}`);
+      cy.get("h2").contains(upcoming[0].title);
     });
   });
   describe("The Go Back button", () => {

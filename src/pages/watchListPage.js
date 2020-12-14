@@ -10,7 +10,7 @@ const WatchListPage = props => {
   const user = context.user;
 
   if(!user){
-    return <div style={{fontSize:35, textAlign:"center"}}><p>Please <Link to={'/signIn'}>Sign In</Link> first!</p></div>
+    return <div style={{fontSize:35, textAlign:"center"}}><p>Please <span className="signIn"><Link to={'/signIn'}>Sign In</Link></span> first!</p></div>
   }
 
   return (
