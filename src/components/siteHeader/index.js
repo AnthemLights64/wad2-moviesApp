@@ -52,6 +52,11 @@ const SiteHeader = () => {
               Watch List
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" to="/people">
+              People
+            </Link>
+          </li>
         </ul>
       </nav>
     </nav>

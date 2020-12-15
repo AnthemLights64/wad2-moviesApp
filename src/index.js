@@ -33,7 +33,7 @@ const SimilarMoviesPage = lazy(() => import("./pages/similarMoviesPage"));
 const MovieCreditsPage = lazy(() => import("./pages/movieCredits"));
 const CastDetailsPage = lazy(() => import("./pages/castDetailsPage"));
 const SignInPage = lazy(() => import("./pages/signInPage"));
-
+const PeoplePage = lazy(() => import("./pages/peoplePage"));
 
 
 
@@ -47,6 +47,7 @@ const App = () => {
         <GenresContextProvider>    {/* NEW */}
           <Suspense fallback={<h1>Loading page....</h1>}>
               <Switch>
+                <Route path="/people" component={PeoplePage} />
                 <Route path="/signIn" component={SignInPage} />
                 <Route path="/credit/:id" component={CastDetailsPage} />
                 <Route exact path="/movies/:id/movieCredits" component={MovieCreditsPage} />
