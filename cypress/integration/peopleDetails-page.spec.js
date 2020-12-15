@@ -1,5 +1,6 @@
 let personId = 976;
-let known_for_movie_id = 82992;
+let known_for_movie_id = [ 82992, 168259, 337339 ];
+
 let person;
 
 describe("People Details Page", () => {
@@ -80,6 +81,6 @@ describe("People Details Page", () => {
   });
   it("should navigate to movie details of the known for posters", () => {
     cy.get(".known_for_posters").find("img").eq(0).click();
-    cy.url().should("include", `/movies/${known_for_movie_id}`);
+    cy.url().should("include", `/movies/${known_for_movie_id[0]}`);
   });
 });

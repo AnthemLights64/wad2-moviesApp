@@ -1,6 +1,5 @@
 let people;    // List of people from TMDB
 
-
 describe("People Page ", () => {
   before(() => {
     // Get people from TMDB and store in people variable.
