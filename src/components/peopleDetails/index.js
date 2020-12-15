@@ -11,6 +11,7 @@ export default ({ people, ppeople }) => {
             src = {`https://image.tmdb.org/t/p/w500/${people.profile_path}`}
             alt = {people.name}
             style= {{width:200, height:300,borderRadius:10}}
+            className= {"profile_image"}
         />
             <div style={{marginTop:10}}>
                 <ul className="list-group list-group-vertical" style={{display:"inline-block"}}>
@@ -53,7 +54,7 @@ export default ({ people, ppeople }) => {
             <h4>Biography:</h4>
             <p style={{textAlign:"justify"}}>{people.biography}</p>
             <h4>Known for:</h4>
-            <div style={{marginTop:50,textAlign:"center"}}>
+            <div style={{marginTop:50,textAlign:"center"}} className={"known_for_posters"}>
                 {(ppeople.known_for||[]).map(e => (
                     <Link to={`/movies/${e.id}`} key={e.id}>
                         <img 
