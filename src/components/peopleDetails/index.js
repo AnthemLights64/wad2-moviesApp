@@ -1,7 +1,8 @@
 import React from "react";
 import "./peopleDetails.css";
+import { Link } from "react-router-dom";
 
-export default ({ people, PEOPLE }) => {
+export default ({ people, ppeople }) => {
   return (
     <>
     <div style={{display:"flex",marginLeft:200,marginRight:200}}>
@@ -9,9 +10,9 @@ export default ({ people, PEOPLE }) => {
         <img
             src = {`https://image.tmdb.org/t/p/w500/${people.profile_path}`}
             alt = {people.name}
-            style= {{width:200, height:300}}
+            style= {{width:200, height:300,borderRadius:10}}
         />
-            <div>
+            <div style={{marginTop:10}}>
                 <ul className="list-group list-group-vertical" style={{display:"inline-block"}}>
                     <li key="birthday" className="list-group-item list-group-item-dark">
                     Birthday:
@@ -38,7 +39,7 @@ export default ({ people, PEOPLE }) => {
                     <li key="aka" className="list-group-item list-group-item-dark">
                     Also known as:
                     </li>
-                    {people.also_known_as.map(aka => (
+                    {(people.also_known_as||[]).map(aka => (
                     <li key={aka} className="list-group-item">
                         {aka}
                     </li>
@@ -51,13 +52,16 @@ export default ({ people, PEOPLE }) => {
             <h3>{people.name}</h3>
             <h4>Biography:</h4>
             <p style={{textAlign:"justify"}}>{people.biography}</p>
+            <h4>Known for:</h4>
             <div style={{marginTop:50,textAlign:"center"}}>
-                {(PEOPLE.known_for||[]).map(e => (
+                {(ppeople.known_for||[]).map(e => (
+                    <Link to={`/movies/${e.id}`} key={e.id}>
                         <img 
                             src = {`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
                             style= {{width:150, height:225,marginLeft:50,marginRight:50,borderRadius:15}}
                             alt = {e.title}
                         />
+                    </Link>
                 ))}
             </div>
         </div>

@@ -15,6 +15,7 @@ import PeopleCard from "../src/components/peopleCard";
 import PeopleHeader from "../src/components/headerPeopleList";
 import PeopleList from "../src/components/peopleList";
 import PeopleDetails from "../src/components/peopleDetails";
+import { BrowserRouter } from "react-router-dom";
 
 const sample = {
   adult: false,
@@ -261,21 +262,21 @@ storiesOf("Movie Details Page/MovieHeader", module)
   .add("default", () => <MovieHeader movie={sample} />);
 
 storiesOf("People Page/PeopleCard", module)
-  .add("default", () => <PeopleCard people={peopleSample} />)
+  .add("default", () => <BrowserRouter><PeopleCard people={peopleSample} /></BrowserRouter>)
   .add("exception", () => {
     const sampleNoPoster = { ...peopleSample, profile_path: undefined };
-    return <PeopleCard people={sampleNoPoster} />;
+    return <BrowserRouter><PeopleCard people={sampleNoPoster} /></BrowserRouter>;
   });
 
 storiesOf("People Page/Header", module).add("default", () => (
-    <PeopleHeader numPeople={20} />
+    <PeopleHeader title="Popular People" numPeople={20} />
   ));
 
 storiesOf("People Page/PeopleList", module).add("default", () => {
-    const peoples= [peopleSample, peopleSample, peopleSample, peopleSample, peopleSample]
-    return <PeopleList peoples={peoples} />
+    const people= [peopleSample, peopleSample, peopleSample, peopleSample, peopleSample]
+    return <BrowserRouter><PeopleList people={people} /></BrowserRouter>;
 });
 
-storiesOf("People Details Page/PeopleDetails", module).add("default", () => (
-  <PeopleDetails people={peopleDetailSample} PEOPLE={peopleSample} />
-));
+storiesOf("People Details Page/PeopleDetails", module).add("default", () => {
+  return <BrowserRouter><PeopleDetails people={peopleDetailSample} ppeople={peopleSample} /></BrowserRouter>;
+});
