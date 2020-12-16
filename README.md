@@ -109,7 +109,7 @@ Name: Wenlong Lu
 ![][signInLink]
 >Clicking the "SignIn" after the first click on the Favorites or Watch List in the navigation bar will display a form for user to sign in.
 
-![] [peopleCardLink]
+![][peopleCardLink]
 >Clicking a person card after clicking the "People" on navigation bar causes the display of that person's details.
 
 ![][knownForMovieLink]
