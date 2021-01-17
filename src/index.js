@@ -66,14 +66,14 @@ const App = () => {
                     <Route path="/credit/:id" component={CastDetailsPage} />
                     <Route exact path="/movies/:id/movieCredits" component={MovieCreditsPage} />
                     <Route path="/:id/similar" component={SimilarMoviesPage} />
-                    <Route exact path="/movies/watchList" component={WatchListPage} />
+                    <PrivateRoute exact path="/movies/watchList" component={WatchListPage} />
                     <Route exact path="/movies/top_rated" component={TopRatedMoviesPage} />
                     <Route exact path="/reviews/form" component={AddMovieReviewPage} />
                     <Route path="/reviews/:id" component={MovieReviewPage} />
-                    <PrivateRoute exact path="/movies/upcoming" component={UpcomingMoviesPage} />
-                    <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
+                    <Route exact path="/movies/upcoming" component={UpcomingMoviesPage} />
+                    <PrivateRoute exact path="/movies/favorites" component={FavoriteMoviesPage} />
                     <Route path="/movies/:id" component={MoviePage} />
-                    <PrivateRoute path="/" component={HomePage} />
+                    <Route path="/" component={HomePage} />
                     <Redirect from="*" to="/" />
                   </Switch>
               </Suspense>
